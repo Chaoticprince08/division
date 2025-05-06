@@ -41,6 +41,12 @@ reg  [3:0] present_state, next_state; // 3-bit state register
 //State Updation Logic
 always @(posedge(clk) or posedge(rst)) begin
     if(rst) begin
+        /*It is to be noted that for FPGA synthesis you can
+        write the output signals here and vivado is clever
+        enough to synthesis the design.
+        However when the same design is synthesized it is not
+        at all recommended to write the register on LHS
+        in different always blocks.*/
         select_A <= 1'b0;
         select_Q <= 1'b0;
         ld_A <= 1'b0;
@@ -281,7 +287,7 @@ always @(present_state) begin
         end
 
         default : begin
-             count_enable = 1'b0; // Disable counter in idle state
+            count_enable = 1'b0; // Disable counter in idle state
             select_A = 1'b0; // Select A register in idle state
             select_Q = 1'b0; // Select Q register in idle state
             ld_A = 1'b0; // Load A register in idle state
