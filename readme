@@ -1,0 +1,3 @@
+screenshot(409).png and screenshot(410).png are the final waveform results.
+Non restoring division.pdf contains the controlpath and datapath of the design. Kindly check the datapath  and controlpath before analyzing the verilog modules.
+The design is built structurally and modular with all the basic components. Please check the datapath and the respective modules.
