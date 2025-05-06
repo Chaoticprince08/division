@@ -99,7 +99,15 @@ module division_4bit_tb;
     #10 rst = 1; 
 		#10 rst = 0;
         // Test Case 5: 6 / 0 (Divide by zero - optional handling)
-        dividend = 4'd15;
+        dividend = 4'd6;
+        divisor  = 4'd15;
+        start = 1;
+        #20 start = 0;
+        #300;
+    #10 rst = 1; 
+		#10 rst = 0;
+        // Test Case 5: 6 / 0 (Divide by zero - optional handling)
+        dividend = 4'd12;
         divisor  = 4'd15;
         start = 1;
         #20 start = 0;
