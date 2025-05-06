@@ -46,7 +46,8 @@ always @(posedge(clk) or posedge(rst)) begin
         enough to synthesis the design.
         However when the same design is synthesized it is not
         at all recommended to write the register on LHS
-        in different always blocks.*/
+        in different always blocks.
+        It is even not recommended to write output signals here*/
         select_A <= 1'b0;
         select_Q <= 1'b0;
         ld_A <= 1'b0;
