@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 module mux_2x1_16bit (
     input select,
-    input [3:0] A,
-    input [3:0] B,
-    output reg [3:0] out
+    input [15:0] A,
+    input [15:0] B,
+    output reg [15:0] out
 );
 
     always @(select or A or B) begin

@@ -7,14 +7,14 @@ module division_4bit_tb;
     reg clk;
     reg rst;
     reg start;
-    reg [3:0] dividend;
-    reg [3:0] divisor;
+    reg [15:0] dividend;
+    reg [15:0] divisor;
 
     // Outputs
-     wire [6:0] seg;
-	wire [3:0] digit;
-	//wire [3:0] quotient;
-    wire [4:0] remainder;
+    //wire [6:0] seg;
+	//wire [3:0] digit;
+	wire [15:0] quotient;
+    wire [16:0] remainder;
     wire done;
     // Instantiate the Unit Under Test (UUT)
     non_restoring_division_topmodule uut (
@@ -23,9 +23,9 @@ module division_4bit_tb;
         .start(start),
         .dividend(dividend),
         .divisor(divisor),
-        //.quotient(quotient), 
-		.seg(seg),
-		.digit(digit),
+        .quotient(quotient), 
+		//.seg(seg),
+		//.digit(digit),
 		.done(done),
         .remainder(remainder)
     );
@@ -50,68 +50,77 @@ module division_4bit_tb;
         // Test Case 1: 13 / 3
         #10;
 		rst =0;
-        dividend = 4'd15;
-        divisor  = 4'd15;
+        dividend = 16'd15;
+        divisor  = 16'd15;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
          
 		#10 rst = 1; 
 		#10 rst = 0;
         // Test Case 2: 7 / 2
-        dividend = 4'd7;
-        divisor  = 4'd2;
+        dividend = 16'd7;
+        divisor  = 16'd2;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
 	#10 rst = 1; 
 		#10 rst = 0;
         // Test Case 3: 15 / 4
-        dividend = 4'd15;
-        divisor  = 4'd4;
+        dividend = 16'd15;
+        divisor  = 16'd4;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
 	#10 rst = 1; 
 		#10 rst = 0;
         // Test Case 4: 9 / 1
-        dividend = 4'd9;
-        divisor  = 4'd2;
+        dividend = 16'd9;
+        divisor  = 16'd2;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
 			#10 rst = 1; 
 		#10 rst = 0;
-		dividend = 4'd8;
-		divisor = 4'd3;
+		dividend = 16'd8;
+		divisor = 16'd3;
 		start=1;
 		#20 start = 0;
-		#300;
+		#5000;
 	
 	#10 rst = 1; 
 		#10 rst = 0;
         // Test Case 5: 6 / 0 (Divide by zero - optional handling)
-        dividend = 4'd15;
-        divisor  = 4'd15;
+        dividend = 16'd15;
+        divisor  = 16'd15;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
     #10 rst = 1; 
 		#10 rst = 0;
         // Test Case 5: 6 / 0 (Divide by zero - optional handling)
-        dividend = 4'd6;
-        divisor  = 4'd15;
+        dividend = 16'd6;
+        divisor  = 16'd15;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
     #10 rst = 1; 
 		#10 rst = 0;
         // Test Case 5: 6 / 0 (Divide by zero - optional handling)
-        dividend = 4'd12;
-        divisor  = 4'd15;
+        dividend = 16'd12;
+        divisor  = 16'd15;
         start = 1;
         #20 start = 0;
-        #300;
+        #5000;
+    #10 rst = 1; 
+		#10 rst = 0;
+        // Test Case 5: 6 / 0 (Divide by zero - optional handling)
+        dividend = 16'd3219;
+        divisor  = 16'd2017;
+        start = 1;
+        #20 start = 0;
+        #5000;
+
        $finish;
     end
 

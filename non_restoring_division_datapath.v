@@ -16,8 +16,8 @@
 module non_restoring_division_datapath (
     input clk,
     input rst,
-    input [3:0] dividend,
-    input [3:0] divisor,
+    input [15:0] dividend,
+    input [15:0] divisor,
     input select_A,
     input select_Q,
     input ld_A,
@@ -29,26 +29,26 @@ module non_restoring_division_datapath (
     input count_enable,
     input ld_rem_quotient,
     output negative_flag,
-    output [3:0] quotient,
-    output [4:0] remainder,
-    output [1:0] count,
+    output [15:0] quotient,
+    output [16:0] remainder,
+    output [3:0] count,
     output status
 );
 
 // Internal signals
-wire [4:0] A; // 17 bits to accommodate the sign bit
-wire [3:0] Q;
+wire [16:0] A; // 17 bits to accommodate the sign bit
+wire [15:0] Q;
 //reg [3:0] M;
 //wire negative_flag;
-wire [4:0] mux_out_1;
-wire [4:0] shift_register_out_a;
-wire [3:0] shift_register_out_q;
-wire [4:0] adder_out;
-wire [4:0] subtractor_out;
-wire [4:0] mux_out_2;
-wire [3:0] mux_out_3;
-wire [4:0] mux_out_4;
-wire [1:0] count;
+wire [16:0] mux_out_1;
+wire [16:0] shift_register_out_a;
+wire [15:0] shift_register_out_q;
+wire [16:0] adder_out;
+wire [16:0] subtractor_out;
+wire [16:0] mux_out_2;
+wire [15:0] mux_out_3;
+wire [16:0] mux_out_4;
+//wire [1:0] count;
 wire complete;
 wire rst_out;
 
@@ -57,7 +57,7 @@ wire rst_out;
 //.B(2nd mux_output)
 mux_2x1 mux1(
     .select(select_A),
-    .A(5'b0),
+    .A(17'b0),
     .B(mux_out_2),
     .out(mux_out_1)
 );
@@ -91,7 +91,7 @@ shift_register_a shift_A_left(
 );
 
 comparator_1bit cmp1(
-    .A(A[4]),
+    .A(A[16]),
     .B(1'b1),
     .equal(negative_flag)
 );
@@ -132,7 +132,7 @@ shift_register_q shift_Q_left(
     .clk(clk),
     .shift_left_enable_q(shift_left_enable_q),
     .Q(Q),
-    .A(mux_out_2[4]), //Use the sign bit of the output of the second stage
+    .A(mux_out_2[16]), //Use the sign bit of the output of the second stage
     .shift_out(shift_register_out_q)
 );
 
@@ -157,7 +157,7 @@ counter incrementer(
 //Comparator to check whether counter has reached 16 iterations
 comparator cmp(
     .A(count),
-    .B(2'b11),
+    .B(4'b1111),
     .equal(status)
 );
 

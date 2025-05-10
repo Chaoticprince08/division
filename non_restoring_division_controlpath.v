@@ -4,7 +4,7 @@ module non_restoring_division_control_path (
     input rst,
     input start,
     input negative_flag,
-    input [1:0] count,
+    input [3:0] count,
     //input status_correctness_check,
     input status,
     output reg select_A,
@@ -17,7 +17,9 @@ module non_restoring_division_control_path (
     output reg shift_left_enable_q,
     output reg count_enable,
     output reg ld_rem_quotient,
-    output reg done 
+    output reg done,
+    output [3:0] ps,
+    output [3:0] ns
 );
 
 //FSM states using parameters
@@ -37,27 +39,12 @@ parameter [3:0] display = 4'b1100;
 
 //State variables
 reg  [3:0] present_state, next_state; // 3-bit state register
+assign ps = present_state;
+assign ns = next_state;
 
 //State Updation Logic
 always @(posedge(clk) or posedge(rst)) begin
     if(rst) begin
-        /*It is to be noted that for FPGA synthesis you can
-        write the output signals here and vivado is clever
-        enough to synthesis the design.
-        However when the same design is synthesized it is not
-        at all recommended to write the register on LHS
-        in different always blocks.
-        It is even not recommended to write output signals here*/
-        select_A <= 1'b0;
-        select_Q <= 1'b0;
-        ld_A <= 1'b0;
-        ld_Q <= 1'b0;
-        shift_left_enable_a <= 1'b0;
-        select_add <= 1'b0;
-        select_mux_2 <= 1'b0;
-        shift_left_enable_q <= 1'b0;
-        count_enable <= 1'b0;
-        ld_rem_quotient <= 1'b0;
         present_state <= idle; // Reset to idle state
     end 
     else begin
