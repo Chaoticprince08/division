@@ -120,6 +120,14 @@ module division_4bit_tb;
         start = 1;
         #20 start = 0;
         #5000;
+    #10 rst = 1; 
+		#10 rst = 0;
+        // Test Case 5: 6 / 0 (Divide by zero - optional handling)
+        dividend = 16'd3219;
+        divisor  = 16'd7;
+        start = 1;
+        #20 start = 0;
+        #5000;
 
        $finish;
     end
